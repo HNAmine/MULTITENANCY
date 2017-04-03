@@ -18,35 +18,15 @@ import multitenancy.org.DataSourceBasedMultiTenantConnectionProviderImpl;
 public class MultitenancyConfiguration {
 
 	@Autowired
-	private MultitenancyConfigurationProperties multitenancyProperties;
-
-	@Autowired
 	private DataSourceDB dataSourceDB;
 
 	@Bean(name = "multitenantProvider")
 	public DataSourceBasedMultiTenantConnectionProviderImpl dataSourceBasedMultiTenantConnectionProvider() {
-
 		HashMap<String, DataSource> dataSources = new HashMap<String, DataSource>();
-
-		System.out.println("----------------------");
-		this.dataSourceDB.getTenants().forEach(t -> {
-			System.out.println(t.getName());
-		});
-		
-		// load conf
-		multitenancyProperties.getTenants().stream().forEach(
+		dataSourceDB.getTenants().stream().forEach(
 				tc -> dataSources.put(tc.getName(), DataSourceBuilder.create().driverClassName(tc.getDriverClassName())
 						.username(tc.getUsername()).password(tc.getPassword()).url(tc.getUrl()).build()));
-
-		// dataSourceDB.getTenants().stream().forEach(tc ->
-		// dataSources.put(tc.getName(),
-		// DataSourceBuilder.create()
-		// .driverClassName(tc.getDriverClassName())
-		// .username(tc.getUsername())
-		// .password(tc.getPassword())
-		// .url(tc.getUrl()).build()));
-
-		return new DataSourceBasedMultiTenantConnectionProviderImpl(multitenancyProperties.getDefaultTenant().getName(),
+		return new DataSourceBasedMultiTenantConnectionProviderImpl(dataSourceDB.getDefaultTenant().getName(),
 				dataSources);
 	}
 

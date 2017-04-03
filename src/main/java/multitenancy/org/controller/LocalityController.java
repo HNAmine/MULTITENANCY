@@ -8,21 +8,19 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.google.common.collect.Lists;
-
-import multitenancy.org.model.Invoice;
-import multitenancy.org.repository.InvoiceRepository;
+import multitenancy.org.model.Locality;
+import multitenancy.org.repository.LocalityRepository;
 
 @RestController
-@RequestMapping("/{tenantId}/invoice")
-public class InvoiceController {
+@RequestMapping("/{tenantId}/points")
+public class LocalityController {
 
 	@Autowired
-	private InvoiceRepository invoiceRepository;
+	private LocalityRepository pointRepository;
 
 	@RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	public List<Invoice> invoices() {
-		return Lists.newArrayList(invoiceRepository.findAll());
+	public List<Locality> invoices() {
+		return pointRepository.findAll();
 	}
-
+	
 }

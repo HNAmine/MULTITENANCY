@@ -13,4 +13,5 @@ multitenancy:
     password:
     driver-class-name: com.mysql.jdbc.Driver
     
-    
+server:
+  address: 0.0.0.0

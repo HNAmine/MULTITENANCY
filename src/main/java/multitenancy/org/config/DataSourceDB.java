@@ -25,16 +25,15 @@ public class DataSourceDB {
 		t1.setUsername("root");
 		t1.setDriverClassName("com.mysql.jdbc.Driver");
 		t1.setPassword("");
-		t1.setUrl("jdbc:mysql:localhost:3306/tenant_1?serverTimezone=UTC");
+		t1.setUrl("jdbc:mysql://localhost:3306/tenant_1?serverTimezone=UTC");
 		t1.setDefault(true);
 
-    
 		Tenant t2 = new Tenant();
 		t2.setName("tenant_2");
 		t2.setUsername("root");
 		t2.setDriverClassName("com.mysql.jdbc.Driver");
 		t2.setPassword("");
-		t2.setUrl("jdbc:mysql:localhost:3306/tenant_2?serverTimezone=UTC");
+		t2.setUrl("jdbc:mysql://localhost:3306/tenant_2?serverTimezone=UTC");
 		t2.setDefault(false);
 
 		tenants.add(t1);
@@ -47,6 +46,10 @@ public class DataSourceDB {
 					"Only can be configured as default one data source. Review your configuration");
 		}
 		this.defaultTenant = tcs.get(0);
+	}
+
+	public void addTenant(Tenant tenant) {
+		this.tenants.add(tenant);
 	}
 
 	public List<Tenant> getTenants() {
